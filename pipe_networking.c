@@ -68,9 +68,9 @@ int server_handshake(int *to_client) {
 	char stuff[1024];
 	while(1){
 	  read(wkpid, stuff, sizeof(stuff));
-	  printf("SERVER: received message [%s]\n", stuff);
+	  printf("SERVER: received message %s", stuff);
 	  stuff[0] += 1;
-	  printf("SERVER: Sending message [%s] back!\n", stuff);
+	  printf("SERVER: Sending message %s", stuff);
 	  write(*to_client, stuff, sizeof(stuff));	
 	}
   	return wkpid;
@@ -121,10 +121,10 @@ int client_handshake(int *to_server) {
 	while(1){
 	  printf("Enter data: ");
 	  fgets(stuff, 1024, stdin);
-	  printf("CLIENT: Sending message [%s]\n", stuff);
+	  printf("CLIENT: Sending message %s", stuff);
 	  write(*to_server, stuff, sizeof(stuff));
 	  read(pkw, stuff, 1024);
-	  printf("CLIENT: received message [%s]\n", stuff);
+	  printf("CLIENT: received message %s", stuff);
 	}
 	
 	return pkw;
