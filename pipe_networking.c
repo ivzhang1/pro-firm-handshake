@@ -65,14 +65,6 @@ int server_handshake(int *to_client) {
 		exit(EXIT_FAILURE);
 	}
 	
-	char stuff[1024];
-	while(1){
-	  read(wkpid, stuff, sizeof(stuff));
-	  printf("SERVER: received message %s", stuff);
-	  stuff[0] += 1;
-	  printf("SERVER: Sending message %s", stuff);
-	  write(*to_client, stuff, sizeof(stuff));	
-	}
   	return wkpid;
 
 }
@@ -117,13 +109,13 @@ int client_handshake(int *to_server) {
 	remove("pkw");
 	printf("CLIENT: Sending message [%s] back!\n", ACK);
 	write(*to_server, ACK, sizeof(ACK));
-	char stuff[1024];
+	char stuff[BUFFER_SIZE];
 	while(1){
 	  printf("Enter data: ");
-	  fgets(stuff, 1024, stdin);
+	  fgets(stuff, BUFFER_SIZE, stdin);
 	  printf("CLIENT: Sending message %s", stuff);
 	  write(*to_server, stuff, sizeof(stuff));
-	  read(pkw, stuff, 1024);
+	  read(pkw, stuff, BUFFER_SIZE);
 	  printf("CLIENT: received message %s", stuff);
 	}
 	
